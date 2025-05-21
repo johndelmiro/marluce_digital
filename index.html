@@ -72,8 +72,209 @@
         /* --- End Styles for Password Screen --- */
 
     </style>
+    <style id="theme-styles">
+        :root {
+            --background-color: #f9fafb; /* Default to bg-gray-50 */
+            --text-color: #374151;       /* Default to text-gray-700 for body text */
+            --primary-color: #6b73ff;
+            --secondary-color: #000dff;
+            --card-bg-color: #ffffff;
+            --card-text-color: #4b5563;  /* Default to text-gray-600 for card text */
+            --card-border-color: #e5e7eb; /* Default to border-gray-200 */
+            --heading-color: #1f2937;    /* Default to text-gray-800 for headings */
+            --subtle-bg-color: #f3f4f6;  /* For backgrounds like bg-gray-100, bg-blue-50 */
+            --subtle-text-color: #6b7280; /* Default to text-gray-500 for less prominent text */
+            --accent-color: #4CAF50;     /* Green for checkmarks, success messages */
+            --link-color: #3b82f6;       /* Default to text-blue-600 for links */
+            
+            /* Buttons (general) */
+            --button-bg-color: #6b73ff;       /* Primary color */
+            --button-text-color: #ffffff;     /* White text on primary buttons */
+
+            /* Password Screen Specific (Light Theme) */
+            --password-screen-overlay-bg: rgba(0, 0, 0, 0.7);
+            --password-modal-bg: #1f2937; /* bg-gray-900 (keeping it dark as per original design) */
+            --password-modal-text-color: #ffffff;
+            --password-input-bg: #374151; /* bg-gray-700 (dark input on dark modal) */
+            --password-input-border: #4b5563; /* border-gray-600 */
+            --password-input-placeholder: #9ca3af; /* placeholder-gray-400 */
+            --password-button-bg: #2563eb; /* bg-blue-600 */
+            --password-button-text: #ffffff;
+            --error-text-color: #ef4444; /* text-red-500 */
+        }
+
+        .dark-theme {
+            --background-color: #111827; /* bg-gray-900 */
+            --text-color: #d1d5db;       /* text-gray-300 */
+            --primary-color: #8a90ff;    /* Lighter for dark mode */
+            --secondary-color: #535bf2;  /* Lighter for dark mode */
+            --card-bg-color: #1f2937;    /* bg-gray-800 */
+            --card-text-color: #9ca3af;  /* text-gray-400 */
+            --card-border-color: #374151; /* border-gray-700 */
+            --heading-color: #f3f4f6;    /* text-gray-100 */
+            --subtle-bg-color: #374151;  /* bg-gray-700 */
+            --subtle-text-color: #9ca3af;/* text-gray-400 */
+            --accent-color: #34d399;     /* Brighter green for dark mode */
+            --link-color: #60a5fa;       /* Lighter blue for dark mode */
+
+            /* Buttons (general) - Dark Theme */
+            --button-bg-color: #8a90ff;       /* Primary color (dark theme version) */
+            --button-text-color: #111827;     /* Dark text on lighter dark theme buttons */
+
+            /* Password Screen Specific (Dark Theme) */
+            --password-screen-overlay-bg: rgba(0, 0, 0, 0.85); /* Darker overlay */
+            --password-modal-bg: #0f172a; /* Even darker modal, e.g., bg-slate-900 */
+            --password-modal-text-color: #e5e7eb; /* Lighter modal text */
+            --password-input-bg: #1f2937;    /* Darker input bg */
+            --password-input-border: #4b5563; /* Slightly lighter border for contrast */
+            --password-input-placeholder: #6b7280; /* Darker placeholder */
+            --password-button-bg: #535bf2;    /* Dark theme primary button */
+            --password-button-text: #ffffff;
+            --error-text-color: #f87171; /* Brighter red for dark mode */
+        }
+
+        body.light-theme, body.dark-theme {
+            background-color: var(--background-color) !important; /* Important to override Tailwind class if present on body */
+            color: var(--text-color);
+            /* font-family is already set in the first style block */
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        }
+
+        .feature-item:before {
+            /* The content, position, and font-weight are already set in the first style block. */
+            /* We only need to override the color here. */
+            color: var(--accent-color) !important; /* Important to ensure it overrides the specific #4CAF50 */
+        }
+
+        /* == General Text & Headings == */
+        h1, h2, h3, h4, h5, h6, .text-gray-800, .text-gray-900 { /* General headings */
+            color: var(--heading-color) !important;
+        }
+        p, li, span, div { /* General text containers */
+             /* Default body text color is already applied via body tag */
+        }
+        p.text-gray-700, li.text-gray-700, span.text-gray-700 {
+            color: var(--text-color) !important;
+        }
+        p.text-gray-600, li.text-gray-600, span.text-gray-600 {
+            color: var(--card-text-color) !important;
+        }
+        p.text-gray-500, span.text-gray-500, footer.text-gray-500 {
+            color: var(--subtle-text-color) !important;
+        }
+
+        /* == Links == */
+        a, .text-blue-600 {
+            color: var(--link-color) !important;
+        }
+        a.bg-white.text-blue-600 { /* Special CTA button */
+            background-color: var(--button-text-color) !important; /* White in light, dark in dark */
+            color: var(--button-bg-color) !important; /* Primary in light, primary-dark in dark */
+        }
+         a.bg-white.text-blue-600:hover {
+            filter: brightness(95%); /* Simple hover effect, can be customized */
+        }
+
+
+        /* == Cards & Sections == */
+        .bg-white, .package-card { /* Affects sections and package cards */
+            background-color: var(--card-bg-color) !important;
+            border-color: var(--card-border-color) !important; /* For general borders like border-t border-gray-200 */
+        }
+        /* Specific border colors for package cards are handled by Tailwind utilities like border-t-yellow-500. */
+        /* We can override them if needed, but the task asked not to disrupt existing styles too much. */
+        /* For example: .border-t-yellow-500 { border-top-color: var(--some-yellow-variable) !important; } */
+        
+        .package-card h3 { color: var(--heading-color) !important; }
+        .package-card span { /* Price and /mês text */
+            /* This is broad, might need more specific selectors if issues arise */
+            color: var(--heading-color) !important; 
+        }
+        .package-card span.text-gray-500 { /* Specifically targets "/mês" */
+             color: var(--subtle-text-color) !important;
+        }
+        .package-card p.text-gray-600 {
+            color: var(--card-text-color) !important;
+        }
+        .package-card ul li { /* Feature items */
+            color: var(--card-text-color) !important;
+        }
+        .package-card h4 i { /* Checkmark icons in package includes */
+             /* color is set by feature-item:before, but if other icons exist in h4 */
+        }
+
+
+        /* == Backgrounds & Borders == */
+        .bg-gray-100, .bg-blue-50, .bg-green-50, .bg-green-100 { /* Subtle backgrounds */
+            background-color: var(--subtle-bg-color) !important;
+        }
+        .border-l-blue-500 { border-left-color: var(--primary-color) !important; }
+        .border-l-green-500 { border-left-color: var(--accent-color) !important; }
+        .border-gray-200 { border-color: var(--card-border-color) !important; }
+        
+        /* Icons that get specific colors from Tailwind classes */
+        .text-blue-500 { color: var(--primary-color) !important; }
+        .text-green-500 { color: var(--accent-color) !important; } /* For checkmark next to text */
+        .text-green-800 { color: var(--accent-color) !important; } /* For text within green bg badge */
+
+
+        /* == Password Screen == */
+        #password-screen {
+            background-color: var(--password-screen-overlay-bg) !important;
+        }
+        #password-screen .bg-gray-900 { /* Modal box */
+            background-color: var(--password-modal-bg) !important;
+        }
+        #password-screen h2.text-white {
+            color: var(--password-modal-text-color) !important;
+        }
+        #password-input {
+            background-color: var(--password-input-bg) !important;
+            color: var(--password-modal-text-color) !important; /* User typed text */
+            border-color: var(--password-input-border) !important;
+        }
+        #password-input::placeholder {
+            color: var(--password-input-placeholder) !important;
+        }
+        #submit-password { /* Button */
+            background-color: var(--password-button-bg) !important;
+            color: var(--password-button-text) !important;
+        }
+        #submit-password:hover {
+             filter: brightness(110%); /* Example hover */
+        }
+        #error-message.text-red-500 {
+            color: var(--error-text-color) !important;
+        }
+
+        /* Footer */
+        footer img { /* In case footer image needs to be themed, e.g. inverted for dark mode */
+            /* filter: brightness(var(--logo-brightness, 1)); */
+        }
+        /* .dark-theme footer img { --logo-brightness: 1.5; } /* Example to make logo lighter in dark */
+
+        /* == Theme Switcher Button == */
+        #theme-switcher {
+            background-color: var(--button-bg-color);
+            color: var(--button-text-color);
+            border: 1px solid var(--primary-color); /* Optional: for better visibility */
+            padding: 0.5rem 1rem; /* Equivalent to p-2 px-4 for more control */
+            border-radius: 0.375rem; /* Tailwind rounded-md */
+            font-weight: 500; /* Tailwind font-medium */
+            font-size: 0.875rem; /* Tailwind text-sm */
+            cursor: pointer;
+            transition: opacity 0.2s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out; /* Added transitions for color changes */
+        }
+        #theme-switcher:hover {
+            opacity: 0.8;
+        }
+        
+    </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 light-theme">
 
     <!-- Password Screen -->
     <div id="password-screen-bg"></div>
@@ -100,8 +301,9 @@
                         <h1 class="text-3xl md:text-4xl font-bold">Proposta – Projeto Digital Marluce</h1>
                         <p class="text-blue-100 text-lg">Autoridade, Impacto e Rentabilidade 50+</p>
                     </div>
-                    <div class="bg-white p-4 rounded-lg shadow-md">
-                        <i class="fas fa-signal text-5xl text-blue-600"></i>
+                    <div class="bg-white p-4 rounded-lg shadow-md flex items-center">
+                        <i class="fas fa-signal text-5xl text-blue-600 mr-4"></i>
+                        <button id="theme-switcher" class="p-2 rounded-md text-sm font-medium">Mudar Tema</button>
                     </div>
                 </div>
             </header>
@@ -119,7 +321,7 @@
                     Você.
                 </p>
                 <p class="text-gray-600 mb-4">
-                    A sua experiência, o seu conhecimento, a sua verdade... são exatamente o que milhares de pessoas precisam agora. Só que elas ainda não sabem disso. Porque você ainda não apareceu como deveria.
+                    A sua experiência, o seu conhecimento, a sua verdade... são exatamente o que milhares de. Pessoas precisam agora. Só que elas ainda não sabem disso. Porque você ainda não apareceu como deveria.
                 </p>
                 <p class="text-gray-700 font-semibold mb-4">
                     É por isso que esse projeto existe: pra te posicionar como referência.
@@ -483,6 +685,54 @@
          });
 
     </script>
+    <script id="theme-script">
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const themeSwitcherButton = document.getElementById('theme-switcher');
+            const THEME_KEY = 'theme';
+            const LIGHT_THEME = 'light-theme';
+            const DARK_THEME = 'dark-theme';
 
+            function applyTheme(themeName) {
+                body.classList.remove(LIGHT_THEME, DARK_THEME);
+                body.classList.add(themeName);
+                
+                if (themeSwitcherButton) {
+                    themeSwitcherButton.textContent = themeName === LIGHT_THEME ? "Modo Escuro" : "Modo Claro";
+                }
+                
+                try {
+                    localStorage.setItem(THEME_KEY, themeName);
+                } catch (e) {
+                    console.warn("LocalStorage is not available. Theme preferences will not be saved.", e);
+                }
+            }
+
+            if (themeSwitcherButton) {
+                themeSwitcherButton.addEventListener('click', () => {
+                    if (body.classList.contains(DARK_THEME)) {
+                        applyTheme(LIGHT_THEME);
+                    } else {
+                        applyTheme(DARK_THEME);
+                    }
+                });
+            }
+
+            // Load saved theme or set default
+            let savedTheme = null;
+            try {
+                savedTheme = localStorage.getItem(THEME_KEY);
+            } catch (e) {
+                 console.warn("LocalStorage is not available. Defaulting to light theme.", e);
+            }
+            
+
+            if (savedTheme && (savedTheme === DARK_THEME || savedTheme === LIGHT_THEME)) {
+                applyTheme(savedTheme);
+            } else {
+                applyTheme(LIGHT_THEME); // Default theme
+            }
+        });
+    </script>
 </body>
 </html>
